@@ -19,13 +19,17 @@ public class Tabuleiro implements Estado {
 	public void setQtdRainhas(int qtdRainhas) {
 		this.qtdRainhas = qtdRainhas;
 	}
-	
+	//Retorno uma cópia	
 	public boolean[][] getCasas() {
-		return this.casas;
+		boolean[][] casasCopia = new boolean[this.casas.length][this.casas.length];
+		for(int i = 0; i < this.casas.length; i ++)
+			for(int j = 0; j < this.casas.length; j ++)
+				casasCopia[i][j] = this.casas[i][j]; 
+		return casasCopia;
 	}
-	
+
 	public int getColunaRainha(int linha){
-		for(int coluna = 0; coluna < this.casas.length -1; coluna ++)
+		for(int coluna = 0; coluna < this.casas.length; coluna ++)
 			if(this.casas[linha][coluna])
 				return coluna;
 		return -1;
@@ -35,7 +39,7 @@ public class Tabuleiro implements Estado {
 	public boolean estadoValido() {
 		//Procuro uma rainha
 		for(int linha = 0; linha < this.qtdRainhas; linha ++){
-			for(int coluna = 0; coluna < this.casas.length -1; coluna ++){
+			for(int coluna = 0; coluna < this.casas.length; coluna ++){
 				if (this.casas[linha][coluna]) //Se true, então possui rainha nessa coluna
 					if (rainhaEhAtacada(linha, coluna))
 						return false;
@@ -46,16 +50,16 @@ public class Tabuleiro implements Estado {
 
 	@Override
 	public boolean igual(Estado e) {
-		for(int i = 0; i < this.casas.length -1; i ++)
-			for(int j = 0; j < this.casas.length - 1; j ++)
+		for(int i = 0; i < this.casas.length; i ++)
+			for(int j = 0; j < this.casas.length; j ++)
 				if(((Tabuleiro)e).casas[i][j] != this.casas[i][j])
 					return false;
 		return true;
 	}
 	
 	private boolean rainhaEhAtacada(int linhaAtual, int colunaAtual){
-		for(int linha = 1; linha < this.casas.length; linha ++){
-			boolean existeRainhaVertical = this.casas[linhaAtual - linha][colunaAtual];
+		for(int linha = 1; linha <= linhaAtual; linha ++){
+			boolean existeRainhaVertical = this.casas[linhaAtual-linha][colunaAtual];
 			if(existeRainhaVertical)
 				return true;
 			boolean existeDiagonalEsquerda  = colunaAtual - linha >= 0;
@@ -73,5 +77,6 @@ public class Tabuleiro implements Estado {
 		}
 		return false;
 	}
+
 
 }
