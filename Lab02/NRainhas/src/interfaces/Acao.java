@@ -12,5 +12,6 @@ package interfaces;
  * @author Josenildo Silva <jcsilva@ifma.edu.br>
  */
 public interface Acao {
+
     
 }

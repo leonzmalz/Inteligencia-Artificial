@@ -6,12 +6,19 @@ public class Tabuleiro implements Estado {
 
 	private boolean[][] casas;
 	
-	public Tabuleiro(int dimensao) {
-		this.casas = new boolean[dimensao][dimensao];
+	public Tabuleiro(boolean[][] casas) {
+		this.casas = casas;
 	}
 	
 	public boolean[][] getCasas() {
 		return this.casas;
+	}
+	
+	public int getColunaRainha(int linha){
+		for(int coluna = 0; coluna < this.casas.length -1; coluna ++)
+			if(this.casas[linha][coluna])
+				return coluna;
+		return -1;
 	}
 	
 	@Override
