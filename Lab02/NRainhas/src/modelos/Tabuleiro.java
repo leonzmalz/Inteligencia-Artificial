@@ -5,9 +5,19 @@ import interfaces.Estado;
 public class Tabuleiro implements Estado {
 
 	private boolean[][] casas;
+	private int qtdRainhas;
 	
-	public Tabuleiro(boolean[][] casas) {
+	public Tabuleiro(boolean[][] casas, int qtdRainhas) {
 		this.casas = casas;
+		this.qtdRainhas = qtdRainhas;
+	}
+	
+	public int getQtdRainhas() {
+		return qtdRainhas;
+	}
+	
+	public void setQtdRainhas(int qtdRainhas) {
+		this.qtdRainhas = qtdRainhas;
 	}
 	
 	public boolean[][] getCasas() {
@@ -24,9 +34,9 @@ public class Tabuleiro implements Estado {
 	@Override
 	public boolean estadoValido() {
 		//Procuro uma rainha
-		for(int linha = 0; linha < this.casas.length -1; linha ++){
+		for(int linha = 0; linha < this.qtdRainhas; linha ++){
 			for(int coluna = 0; coluna < this.casas.length -1; coluna ++){
-				if (this.casas[linha][coluna]) //Se true, então possui rainha
+				if (this.casas[linha][coluna]) //Se true, então possui rainha nessa coluna
 					if (rainhaEhAtacada(linha, coluna))
 						return false;
 			}

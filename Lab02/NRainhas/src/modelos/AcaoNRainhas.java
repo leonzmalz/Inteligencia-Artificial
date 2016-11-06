@@ -7,7 +7,6 @@ public class AcaoNRainhas implements Acao {
 	private int linha;
 	private int coluna;
 	private boolean possuiRainha;
-	
 	public AcaoNRainhas(int linha, int coluna, boolean possuiRainha) {
 		super();
 		this.linha = linha;

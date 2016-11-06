@@ -39,7 +39,8 @@ public class MapaDeTransicaoNRainhas implements MapaDeTransicao {
 	private Acao tentaInserirRainha(Estado e, int linha, int colunaAtual){
 		for (int coluna = colunaAtual; coluna < ((Tabuleiro) e).getCasas().length -1; coluna ++){
 			Acao insereRainha = new AcaoNRainhas(linha, coluna, true);
-			if(resultado(insereRainha,e).estadoValido())
+			Estado novoEstado = resultado(insereRainha,e);
+			if(novoEstado.estadoValido())
 				return insereRainha;
 		}
 		return null;
@@ -48,11 +49,13 @@ public class MapaDeTransicaoNRainhas implements MapaDeTransicao {
 	@Override
 	public Estado resultado(Acao a, Estado e) {
 		boolean[][] casas    = ((Tabuleiro) e).getCasas();
+		int qtdRainhas       = ((Tabuleiro) e).getQtdRainhas();
 		int linha 			 = ((AcaoNRainhas) a).getLinha();
 		int coluna           = ((AcaoNRainhas) a).getColuna();
-		boolean possuiRainha = ((AcaoNRainhas) a).getPossuiRainha();          
+		boolean possuiRainha = ((AcaoNRainhas) a).getPossuiRainha();
+		qtdRainhas           = ((possuiRainha)? qtdRainhas ++ : qtdRainhas --); 
 		casas[linha][coluna] = possuiRainha;
-		return new Tabuleiro(casas);
+		return new Tabuleiro(casas, qtdRainhas);
 	}
 
 	@Override
