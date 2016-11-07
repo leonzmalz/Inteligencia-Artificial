@@ -25,39 +25,35 @@ public class BuscaBase implements Busca {
 
 	@Override
 	public List<Acao> buscar(Problema problema) {
-		Set<Acao> acoesPossiveis = null;
+		Set<Acao> acoesParaRealizar = null;
 		Nodo raiz = new Nodo(null, problema.estadoInicial(), null, 0.0, 0);
 		this.getFronteira().add(raiz);
-		
 		while (!this.getFronteira().isEmpty()) {
+			//Nodo proximoNodo = this.getFronteira().getLast();
 			Nodo proximoNodo = this.getFronteira().remove();
-			this.getEstadosVisitados().add(proximoNodo.getEstado());
+			this.estadosVisitados.add(proximoNodo.getEstado());
 
-			if (problema.testaObjetivo(proximoNodo.getEstado())) {
+			if (problema.testaObjetivo(proximoNodo.getEstado())) 
 				return this.solucao(proximoNodo);
-			}
-
-			acoesPossiveis = problema.acoes(proximoNodo.getEstado());
-
-			if (acoesPossiveis == null) {
+			
+			acoesParaRealizar = problema.acoes(proximoNodo.getEstado());
+			if (acoesParaRealizar == null) 
 				return null;
-			}
-			Estado estadoResultanteDestaAcao = proximoNodo.getEstado();
-			for (Acao acao : acoesPossiveis) {
-				estadoResultanteDestaAcao = problema.resultado(acao, estadoResultanteDestaAcao);
-
-				if (this.estadoNuncaFoiVisitado(estadoResultanteDestaAcao)){
-					getEstadosVisitados().add(estadoResultanteDestaAcao);
-					
-					Nodo nodoFilho = new Nodo(proximoNodo, estadoResultanteDestaAcao, acao, 1, 1);
+			
+			Estado estadoAtual = proximoNodo.getEstado();
+			for (Acao acao : acoesParaRealizar) {
+				estadoAtual = problema.resultado(acao, estadoAtual);
+				if (this.estadoNuncaFoiVisitado(estadoAtual)){
+					this.estadosVisitados.add(estadoAtual);
+					Nodo nodoFilho = new Nodo(proximoNodo, estadoAtual, acao, 1, 1);
 					this.getFronteira().add(nodoFilho);
-
-					if (problema.testaObjetivo(estadoResultanteDestaAcao)) {
+					
+					if (problema.testaObjetivo(estadoAtual)) {
 						return this.solucao(nodoFilho);
 					}
-		
 				}
-					
+				
+				
 			}
 		}
 
@@ -65,12 +61,9 @@ public class BuscaBase implements Busca {
 	}
 
 	private boolean estadoNuncaFoiVisitado(Estado estadoQualquer) {
-		for (Estado estadoVisitado : this.getEstadosVisitados()) {
-			if (estadoVisitado.igual(estadoQualquer)) {
+		for (Estado estadoVisitado : this.estadosVisitados) 
+			if (estadoVisitado.igual(estadoQualquer)) 
 				return false;
-			}
-		}
-
 		return true;
 	}
 
@@ -88,7 +81,7 @@ public class BuscaBase implements Busca {
 		return s;
 	}
 
-	public List<Estado> getEstadosVisitados() {
-		return estadosVisitados;
+	public Estado getUltimoEstadoVisitado() {
+		return this.estadosVisitados.get(this.estadosVisitados.size() -1);
 	}
 }

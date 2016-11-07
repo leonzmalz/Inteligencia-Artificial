@@ -1,6 +1,5 @@
 package modelos;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,27 +19,22 @@ public class MapaDeTransicaoNRainhas implements MapaDeTransicao {
 				if (colunaRainha == -1){
 					Acao insereRainha = this.tentaInserirRainha(e, linha, 0); //Tenta inserir rainha na primeira posição
 					//Enquanto não conseguir inserir uma rainha, volta uma linha e insere na próxima coluna
-					if(insereRainha == null){
-						//Estado novoEstado = e;
-						while(insereRainha == null){
-							//Primeiro remove a rainha da linha anterior
-							linha --; 
-							colunaRainha = ((Tabuleiro) e).getColunaRainha(linha);  
-							Acao removeRainha = new AcaoNRainhas(linha, colunaRainha, false);
-							acoes.add(removeRainha);
-							e = resultado(removeRainha, e);
-							//Agora tenta adicionar nas próximas colunas da mesma linha
-							colunaRainha ++;
-							insereRainha = this.tentaInserirRainha(e, linha, colunaRainha);
-						}
+					while(insereRainha == null){
+						//Primeiro remove a rainha da linha anterior
+						linha --; 
+						colunaRainha = ((Tabuleiro) e).getColunaRainha(linha);  
+						Acao removeRainha = new AcaoNRainhas(linha, colunaRainha, false);
+						acoes.add(removeRainha);
+						e = resultado(removeRainha, e);
+						//Agora tenta adicionar nas próximas colunas da mesma linha
+						colunaRainha ++;
+						insereRainha = this.tentaInserirRainha(e, linha, colunaRainha);
 					}
-					
 					acoes.add(insereRainha);
 					return acoes;
 				}
-				
 		}
-		return acoes;
+		return null;
 	}
 	
 	private Acao tentaInserirRainha(Estado e, int linha, int colunaAtual){
@@ -55,17 +49,21 @@ public class MapaDeTransicaoNRainhas implements MapaDeTransicao {
 		
 	@Override
 	public Estado resultado(Acao a, Estado e) {
-		boolean[][]novasCasas   = ((Tabuleiro) e).getCasas();
-		int qtdRainhas          = ((Tabuleiro) e).getQtdRainhas();
 		int linha 			    = ((AcaoNRainhas) a).getLinha();
 		int coluna              = ((AcaoNRainhas) a).getColuna();
-		boolean possuiRainha    = ((AcaoNRainhas) a).getPossuiRainha();
-		if (possuiRainha)
-			qtdRainhas ++;
-		else
-			qtdRainhas --;
-		novasCasas[linha][coluna] = possuiRainha;
-		return new Tabuleiro(novasCasas, qtdRainhas);
+		if(linha >= 0 && coluna >= 0){
+			boolean[][]novasCasas   = ((Tabuleiro) e).getCasas();
+			int qtdRainhas          = ((Tabuleiro) e).getQtdRainhas();
+			boolean possuiRainha    = ((AcaoNRainhas) a).getPossuiRainha();
+			if (possuiRainha)
+				qtdRainhas ++;
+			else
+				qtdRainhas --;
+			novasCasas[linha][coluna] = possuiRainha;
+			return new Tabuleiro(novasCasas, qtdRainhas);
+		}else
+			return e;
+		
 	}
 
 	@Override

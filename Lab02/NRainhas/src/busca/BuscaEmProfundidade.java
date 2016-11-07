@@ -5,7 +5,7 @@ import estruturas.LIFOQueue;
 import estruturas.Nodo;
 
 public class BuscaEmProfundidade extends BuscaBase {
-	private LIFOQueue<Nodo> fronteira; // <<<---- PILHA
+	private LIFOQueue<Nodo> fronteira;
 	
 	@Override
 	protected LinkedList<Nodo> getFronteira(){

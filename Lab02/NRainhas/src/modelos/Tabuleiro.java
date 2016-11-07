@@ -29,9 +29,12 @@ public class Tabuleiro implements Estado {
 	}
 
 	public int getColunaRainha(int linha){
-		for(int coluna = 0; coluna < this.casas.length; coluna ++)
-			if(this.casas[linha][coluna])
-				return coluna;
+		if (linha >= 0){
+			for(int coluna = 0; coluna < this.casas.length; coluna ++)
+				if(this.casas[linha][coluna])
+					return coluna;
+			
+		}
 		return -1;
 	}
 	
@@ -76,6 +79,20 @@ public class Tabuleiro implements Estado {
 	 		}
 		}
 		return false;
+	}
+	
+	public void imprimeTabuleiro(){
+		for(int i = 0; i < this.casas.length; i ++){
+			System.out.println("");
+			for(int j = 0; j < this.casas.length; j ++){
+				System.out.print("----");
+			}
+			System.out.println("");
+			for(int j = 0; j < this.casas.length; j ++){
+				System.out.print(((this.casas[i][j]) ? "Q" : " ") + " | ");
+			}
+		}
+				  
 	}
 
 
