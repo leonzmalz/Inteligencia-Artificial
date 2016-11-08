@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import estruturas.LIFOQueue;
 import estruturas.Nodo;
 
-public class BuscaEmProfundidade extends BuscaBase {
+public class BuscaEmProfundidade extends BuscaGenerica {
 	private LIFOQueue<Nodo> fronteira;
 	
 	@Override

@@ -12,10 +12,10 @@ import interfaces.Estado;
 import interfaces.Problema;
 
 
-public class BuscaBase implements Busca {
+public class BuscaGenerica implements Busca {
 	protected final List<Estado> estadosVisitados;
 
-	protected BuscaBase() {
+	protected BuscaGenerica() {
 		this.estadosVisitados = new ArrayList<Estado>();
 	}
 
@@ -59,13 +59,6 @@ public class BuscaBase implements Busca {
 			}
 		}
 		return null;
-	}
-
-	private boolean estadoNuncaFoiVisitado(Estado estadoQualquer) {
-		for (Estado estadoVisitado : this.estadosVisitados) 
-			if (estadoVisitado.igual(estadoQualquer)) 
-				return false;
-		return true;
 	}
 
 	private List<Acao> solucao(Nodo n) {

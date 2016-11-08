@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import estruturas.FIFOQueue;
 import estruturas.Nodo;
 
-public class BuscaEmLargura extends BuscaBase {
+public class BuscaEmLargura extends BuscaGenerica {
 	private FIFOQueue<Nodo> fronteira; 
 
 	@Override
