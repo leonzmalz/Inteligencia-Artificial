@@ -7,10 +7,12 @@ import estruturas.Nodo;
 public class BuscaEmLargura extends BuscaGenerica {
 	private FIFOQueue<Nodo> fronteira; 
 
+	public BuscaEmLargura() {
+		this.fronteira = new FIFOQueue<>();
+	}
+	
 	@Override
 	protected LinkedList<Nodo> getFronteira() {
-		if (this.fronteira == null)
-			this.fronteira = new FIFOQueue<>();
 		return this.fronteira;
 	}
 }

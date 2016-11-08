@@ -29,8 +29,6 @@ public class BuscaGenerica implements Busca {
 		Nodo raiz = new Nodo(null, problema.estadoInicial(), null, 0.0, 0);
 		this.getFronteira().add(raiz);
 		while (!this.getFronteira().isEmpty()) {
-				
-			//Nodo proximoNodo = this.getFronteira().getLast();
 			Nodo proximoNodo = this.getFronteira().remove();
 			this.estadosVisitados.add(proximoNodo.getEstado());
 
@@ -48,10 +46,8 @@ public class BuscaGenerica implements Busca {
 				estadoAtual = problema.resultado(acao, estadoAtual);
 				nodoFilho = new Nodo(proximoNodo, estadoAtual, acao, 1, 1);
 				proximoNodo = nodoFilho;
-				//if (this.estadoNuncaFoiVisitado(estadoAtual)){	
 				this.estadosVisitados.add(estadoAtual);
 				this.getFronteira().add(nodoFilho);
-				//}
 				if (problema.testaObjetivo(estadoAtual)) {
 					return this.solucao(nodoFilho);
 				}

@@ -7,10 +7,12 @@ import estruturas.Nodo;
 public class BuscaEmProfundidade extends BuscaGenerica {
 	private LIFOQueue<Nodo> fronteira;
 	
+	public BuscaEmProfundidade() {
+		this.fronteira = new LIFOQueue<>();
+	}
+	
 	@Override
 	protected LinkedList<Nodo> getFronteira(){
-		if (this.fronteira == null)
-			this.fronteira = new LIFOQueue<>();
 		return this.fronteira;
 	}
 }
