@@ -7,18 +7,15 @@ public class Tabuleiro implements Estado {
 	private boolean[][] casas;
 	private int qtdRainhas;
 	
-	public Tabuleiro(boolean[][] casas, int qtdRainhas) {
-		this.casas = casas;
+	public Tabuleiro(boolean[][] casas,int qtdRainhas) {
+		this.casas 		= casas;
 		this.qtdRainhas = qtdRainhas;
 	}
 	
 	public int getQtdRainhas() {
 		return qtdRainhas;
-	}
+	} 
 	
-	public void setQtdRainhas(int qtdRainhas) {
-		this.qtdRainhas = qtdRainhas;
-	}
 	//Retorno uma cópia	
 	public boolean[][] getCasas() {
 		boolean[][] casasCopia = new boolean[this.casas.length][this.casas.length];
@@ -38,10 +35,18 @@ public class Tabuleiro implements Estado {
 		return -1;
 	}
 	
+	public void alteraTabuleiro(int linha, int coluna, boolean possuiRainha){
+		this.casas[linha][coluna] = possuiRainha;
+		if(possuiRainha)
+			this.qtdRainhas ++;
+		else
+			this.qtdRainhas --;
+	}
+	
 	@Override
 	public boolean estadoValido() {
 		//Procuro uma rainha
-		for(int linha = 0; linha < this.qtdRainhas; linha ++){
+		for(int linha = 0; linha < this.getQtdRainhas(); linha ++){
 			for(int coluna = 0; coluna < this.casas.length; coluna ++){
 				if (this.casas[linha][coluna]) //Se true, então possui rainha nessa coluna
 					if (rainhaEhAtacada(linha, coluna))

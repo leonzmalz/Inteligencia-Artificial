@@ -1,6 +1,6 @@
 package modelos;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import interfaces.Acao;
@@ -12,7 +12,7 @@ public class MapaDeTransicaoNRainhas implements MapaDeTransicao {
 	@Override
 	public Set<Acao> acoes(Estado e) {
 		int colunaRainha;
-		Set<Acao> acoes = new HashSet<>();
+		Set<Acao> acoes = new LinkedHashSet<>();
 		for(int linha = 0; linha < ((Tabuleiro) e).getCasas().length; linha ++){
 				colunaRainha = ((Tabuleiro) e).getColunaRainha(linha);
 				//Se não existe rainha na linha
@@ -55,12 +55,9 @@ public class MapaDeTransicaoNRainhas implements MapaDeTransicao {
 			boolean[][]novasCasas   = ((Tabuleiro) e).getCasas();
 			int qtdRainhas          = ((Tabuleiro) e).getQtdRainhas();
 			boolean possuiRainha    = ((AcaoNRainhas) a).getPossuiRainha();
-			if (possuiRainha)
-				qtdRainhas ++;
-			else
-				qtdRainhas --;
-			novasCasas[linha][coluna] = possuiRainha;
-			return new Tabuleiro(novasCasas, qtdRainhas);
+			Tabuleiro tab = new Tabuleiro(novasCasas,qtdRainhas);
+			tab.alteraTabuleiro(linha, coluna, possuiRainha);
+			return tab;
 		}else
 			return e;
 		

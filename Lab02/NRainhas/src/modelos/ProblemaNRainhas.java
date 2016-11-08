@@ -34,6 +34,7 @@ public class ProblemaNRainhas implements Problema {
 	public double custo(Acao a, Estado ei, Estado ej) {
 		return this.mapa.custo(a, ei, ej);
 	}
+	
 	private Tabuleiro novoTabuleiro(int dimensao){
 		boolean[][] casas = new boolean[dimensao][dimensao];
 		for(int i = 0; i < dimensao; i ++)

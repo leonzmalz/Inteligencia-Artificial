@@ -27,7 +27,7 @@ public class TestNRainhas {
 			System.out.println("Solução não encontrada");
 		else{
 			System.out.println("Acoes a serem realizadas para resolução de tabuleiro de dimensão " + Integer.toString(dimensao));
-			for(int i = 0; i < dimensao; i ++)
+			for(int i = 0; i < result.size() -1; i ++)
 				System.out.println("[Passo "+i+"]"+result.get(i).toString());
 			System.out.println("Tabuleiro final");
 			((Tabuleiro) busca.getUltimoEstadoVisitado()).imprimeTabuleiro();
