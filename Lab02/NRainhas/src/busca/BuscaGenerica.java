@@ -10,6 +10,7 @@ import interfaces.Acao;
 import interfaces.Busca;
 import interfaces.Estado;
 import interfaces.Problema;
+import modelos.ProblemaNRainhas;
 
 
 public class BuscaGenerica implements Busca {
@@ -46,18 +47,18 @@ public class BuscaGenerica implements Busca {
 				estadoAtual = problema.resultado(acao, estadoAtual);
 				nodoFilho = new Nodo(proximoNodo, estadoAtual, acao, 1, 1);
 				proximoNodo = nodoFilho;
-				this.estadosVisitados.add(estadoAtual);
-				this.getFronteira().add(nodoFilho);
-				if (problema.testaObjetivo(estadoAtual)) {
-					return this.solucao(nodoFilho);
-				}
+				if(estadoNuncaFoiVisitado(estadoAtual))
+					this.estadosVisitados.add(estadoAtual);
 				
+				this.getFronteira().add(nodoFilho);
+				if (problema.testaObjetivo(estadoAtual)) 
+					return this.solucao(nodoFilho);
 			}
 		}
 		return null;
 	}
 
-	private List<Acao> solucao(Nodo n) {
+	protected List<Acao> solucao(Nodo n) {
 		List<Acao> s = null;
 		if (n != null) {
 			s = new ArrayList<Acao>();
@@ -70,6 +71,13 @@ public class BuscaGenerica implements Busca {
 		}
 		return s;
 	}
+	
+	protected boolean estadoNuncaFoiVisitado(Estado estadoQualquer) {
+		 		for (Estado estadoVisitado : this.estadosVisitados) 
+		 			if (estadoVisitado.igual(estadoQualquer)) 
+		  				return false;
+		  		return true;
+    }
 
 	public Estado getUltimoEstadoVisitado() {
 		return this.estadosVisitados.get(this.estadosVisitados.size() -1);

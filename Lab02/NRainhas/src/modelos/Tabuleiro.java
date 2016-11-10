@@ -86,6 +86,31 @@ public class Tabuleiro implements Estado {
 		return false;
 	}
 	
+	public int getNumDeAtaques(int linhaAtual, int colunaAtual){
+		int contadorDeAtaques = 0;
+		for(int linha = 0; linha < this.casas.length; linha ++){
+			if(linha != linhaAtual){
+				boolean existeRainhaVertical = this.casas[linha][colunaAtual];
+				if(existeRainhaVertical)
+					contadorDeAtaques ++;
+				boolean existeDiagonalEsquerda  = colunaAtual - linha >= 0;
+				if (existeDiagonalEsquerda){
+					boolean existeRainhaDiagonalEsquerda = this.casas[linha][colunaAtual - linha];
+					if (existeRainhaDiagonalEsquerda)
+						contadorDeAtaques ++;
+		 		}
+				boolean existeDiagonalDireita  = colunaAtual + linha < this.casas.length;
+				if (existeDiagonalDireita){
+					boolean existeRainhaDiagonalDireita = this.casas[linha][colunaAtual + linha];
+					if (existeRainhaDiagonalDireita)
+						contadorDeAtaques ++;
+		 		}
+			}
+			
+		}
+		return contadorDeAtaques;
+	}
+	
 	public void imprimeTabuleiro(){
 		for(int i = 0; i < this.casas.length; i ++){
 			System.out.println("");

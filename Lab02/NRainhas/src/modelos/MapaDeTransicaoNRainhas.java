@@ -36,8 +36,8 @@ public class MapaDeTransicaoNRainhas implements MapaDeTransicao {
 		}
 		return null;
 	}
-	
-	private Acao tentaInserirRainha(Estado e, int linha, int colunaAtual){
+		
+	protected Acao tentaInserirRainha(Estado e, int linha, int colunaAtual){
 		for (int coluna = colunaAtual; coluna < ((Tabuleiro) e).getCasas().length; coluna ++){
 			Acao insereRainha = new AcaoNRainhas(linha, coluna, true);
 			Estado novoEstado = resultado(insereRainha, e);

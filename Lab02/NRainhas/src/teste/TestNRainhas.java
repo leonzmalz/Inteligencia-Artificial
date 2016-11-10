@@ -9,6 +9,8 @@ import busca.TipoBusca;
 import interfaces.Acao;
 import interfaces.Busca;
 import interfaces.Problema;
+import modelos.MapaDeTransicaoHeuristica;
+import modelos.MapaDeTransicaoNRainhas;
 import modelos.ProblemaNRainhas;
 import modelos.Tabuleiro;
 
@@ -18,9 +20,20 @@ public class TestNRainhas {
 		System.out.println("Problema NRainhas");
 		System.out.println("Digite a dimensão do tabuleiro");
 		int dimensao = Integer.parseInt(new Scanner(System.in).nextLine());
-		
-		Problema problema = new ProblemaNRainhas(dimensao);
-		Busca busca = FactoryBusca.createBusca(TipoBusca.PROFUNDIDADE);
+		System.out.println("(C)om ou (S)em Heurística?");
+		String tipoBusca  = new Scanner(System.in).nextLine().toUpperCase();
+		Problema problema;
+		Busca busca;
+		if (tipoBusca.equals("S")){
+			problema = new ProblemaNRainhas(dimensao,false);
+			busca = FactoryBusca.createBusca(TipoBusca.PROFUNDIDADE);
+			
+		}else{
+			problema = new ProblemaNRainhas(dimensao,true);
+			busca = FactoryBusca.createBusca(TipoBusca.GULOSA);
+	
+		}
+			
 		List<Acao> result = busca.buscar(problema);
 		
 		if(result == null)

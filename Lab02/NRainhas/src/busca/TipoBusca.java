@@ -1,5 +1,5 @@
 package busca;
 
 public enum TipoBusca {
-	LARGURA, PROFUNDIDADE;
+	LARGURA, PROFUNDIDADE, GULOSA;
 }

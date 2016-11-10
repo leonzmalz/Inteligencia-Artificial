@@ -12,6 +12,7 @@ public class FactoryBusca {
 			Collections.unmodifiableMap(new HashMap<TipoBusca, Busca>() {{
 		        put(TipoBusca.LARGURA, new BuscaEmLargura());
 		        put(TipoBusca.PROFUNDIDADE, new BuscaEmProfundidade());
+		        put(TipoBusca.GULOSA, new BuscaGulosa());
 		    }});
 	
 	public static Busca createBusca(TipoBusca tipoBusca){

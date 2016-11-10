@@ -1,20 +1,27 @@
 package modelos;
 
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 import interfaces.Acao;
 import interfaces.Estado;
+import interfaces.MapaDeTransicao;
 import interfaces.Problema;
 
 public class ProblemaNRainhas implements Problema {
-	private final MapaDeTransicaoNRainhas mapa;
+	private final MapaDeTransicao mapa;
 	private final Tabuleiro tabuleiroInicial;
 	private final TesteDeObjetivoNRainhas testeDeObjetivo;
 	
-	public ProblemaNRainhas(int dimensao) {
-		this.mapa = new MapaDeTransicaoNRainhas();
+	public ProblemaNRainhas(int dimensao, boolean comHeuristica) {
 		this.testeDeObjetivo = new TesteDeObjetivoNRainhas();
-		this.tabuleiroInicial = novoTabuleiro(dimensao);
+		if(!comHeuristica){
+			this.mapa = new MapaDeTransicaoNRainhas();
+			this.tabuleiroInicial = novoTabuleiro(dimensao);
+		}else{
+			this.mapa = new MapaDeTransicaoHeuristica();
+			this.tabuleiroInicial = novoTabuleiroAleatorio(dimensao);
+		}
 	}
 	
 	@Override
@@ -26,6 +33,7 @@ public class ProblemaNRainhas implements Problema {
 	public Set<Acao> acoes(Estado e) {
 		return this.mapa.acoes(e);
 	}
+	
 	@Override
 	public boolean testaObjetivo(Estado e) {
 		return this.testeDeObjetivo.ehObjetivo(e);
@@ -42,9 +50,19 @@ public class ProblemaNRainhas implements Problema {
 				casas[i][j] = false;
 		return new Tabuleiro(casas, 0);
 	}
+	
+	private Tabuleiro novoTabuleiroAleatorio(int dimensao){
+		Tabuleiro tabuleiro = this.novoTabuleiro(dimensao); 
+		for(int i = 0; i < dimensao; i ++){
+			int colunaAleatoria = ThreadLocalRandom.current().nextInt(0, dimensao);
+			tabuleiro.alteraTabuleiro(i, colunaAleatoria, true);
+		}
+		return tabuleiro;
+	}
+	
 	@Override
 	public Estado estadoInicial() {
 		return this.tabuleiroInicial;
 	}
-
+	
 }

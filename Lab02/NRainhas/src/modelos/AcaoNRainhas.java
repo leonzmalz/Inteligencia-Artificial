@@ -14,6 +14,10 @@ public class AcaoNRainhas implements Acao {
 		this.coluna = coluna;
 		this.possuiRainha = possuiRainha;
 	}
+	
+	public AcaoNRainhas() {
+		super();
+	}
 
 	public int getColuna() {
 		return coluna;
