@@ -16,25 +16,28 @@ public class MapaDeTransicaoHeuristica extends MapaDeTransicaoNRainhas {
 		AcaoNRainhas novaAcao = null;
 		for(int linha = 0; linha < ((Tabuleiro) e).getCasas().length; linha ++){
 			colunaRainha = ((Tabuleiro) e).getColunaRainha(linha);
-			menorCusto = ((Tabuleiro) e).getNumDeAtaques(linha, colunaRainha);
-			//O tabuleiro só pode permitir 1 rainha por linha, então removo para testes
-			AcaoNRainhas removeRainha = new AcaoNRainhas(linha, colunaRainha, false);
-			Estado novoEstado		  = this.resultado(removeRainha, e);
-			for(int coluna = 0; coluna < ((Tabuleiro) e).getCasas().length; coluna ++){
-				if(coluna != colunaRainha){
-					AcaoNRainhas insereRainha = new AcaoNRainhas(linha, coluna, true);
-					novoEstado = this.resultado(insereRainha, novoEstado);
-					double novoCusto = this.custo(insereRainha, e, novoEstado);
-					if(novoCusto < menorCusto){
-						menorCusto = novoCusto;
-						novaAcao = insereRainha;
+			if(colunaRainha != -1){
+				menorCusto = ((Tabuleiro) e).getNumDeAtaques(linha, colunaRainha);
+				//O tabuleiro só pode permitir 1 rainha por linha, então removo para testes
+				AcaoNRainhas removeRainha = new AcaoNRainhas(linha, colunaRainha, false);
+				Estado novoEstado		  = this.resultado(removeRainha, e);
+				for(int coluna = 0; coluna < ((Tabuleiro) e).getCasas().length; coluna ++){
+					if(coluna != colunaRainha){
+						AcaoNRainhas insereRainha = new AcaoNRainhas(linha, coluna, true);
+						novoEstado = this.resultado(insereRainha, novoEstado);
+						double novoCusto = this.custo(insereRainha, e, novoEstado);
+						if(novoCusto < menorCusto){
+							menorCusto = novoCusto;
+							novaAcao = insereRainha;
+						}
 					}
 				}
+				if(novaAcao != null){
+					acoes.add(new AcaoNRainhas(linha,colunaRainha, false)); //Remove a antiga rainha
+					acoes.add(novaAcao);
+				}
 			}
-			if(novaAcao != null){
-				acoes.add(new AcaoNRainhas(linha,colunaRainha, false)); //Remove a antiga rainha
-				acoes.add(novaAcao);
-			}
+			
 		}
 		return acoes;
 	}

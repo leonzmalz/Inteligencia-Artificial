@@ -9,8 +9,6 @@ import busca.TipoBusca;
 import interfaces.Acao;
 import interfaces.Busca;
 import interfaces.Problema;
-import modelos.MapaDeTransicaoHeuristica;
-import modelos.MapaDeTransicaoNRainhas;
 import modelos.ProblemaNRainhas;
 import modelos.Tabuleiro;
 
@@ -36,15 +34,17 @@ public class TestNRainhas {
 			
 		List<Acao> result = busca.buscar(problema);
 		
-		if(result == null)
+		if(result == null){
 			System.out.println("Solução não encontrada");
+			System.out.println("Último tabuleiro válido");
+		}
 		else{
 			System.out.println("Acoes a serem realizadas para resolução de tabuleiro de dimensão " + Integer.toString(dimensao));
 			for(int i = 0; i < result.size(); i ++)
 				System.out.println("[Passo "+Integer.toString(i+1)+"]"+result.get(i).toString());
 			System.out.println("Tabuleiro final");
-			((Tabuleiro) ((BuscaGenerica) busca).getUltimoEstadoVisitado()).imprimeTabuleiro();
 		}
+		((Tabuleiro) ((BuscaGenerica) busca).getUltimoEstadoVisitado()).imprimeTabuleiro();
 		
 		
 	}
