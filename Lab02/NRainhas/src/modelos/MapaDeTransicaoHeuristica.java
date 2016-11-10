@@ -36,7 +36,11 @@ public class MapaDeTransicaoHeuristica extends MapaDeTransicaoNRainhas {
 					acoes.add(new AcaoNRainhas(linha,colunaRainha, false)); //Remove a antiga rainha
 					acoes.add(novaAcao);
 				}
+			}else{
+				AcaoNRainhas insereRainha = new AcaoNRainhas(linha, 0, true);
+				acoes.add(insereRainha);
 			}
+			
 			
 		}
 		return acoes;
