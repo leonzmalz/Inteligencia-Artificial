@@ -34,13 +34,13 @@ public class BuscaGulosa extends BuscaEmProfundidade {
 				estadoAtual = problema.resultado(acao, estadoAtual);
 				nodoFilho = new Nodo(proximoNodo, estadoAtual, acao, 1, 1);
 				proximoNodo = nodoFilho;
-				//if(estadoNuncaFoiVisitado(estadoAtual)){
+				if(estadoNuncaFoiVisitado(estadoAtual)){
 					this.estadosVisitados.add(estadoAtual);
 					
 					this.getFronteira().add(nodoFilho);
 					if (problema.testaObjetivo(estadoAtual)) 
 						return this.solucao(nodoFilho);
-				//}
+				}
 				
 			}
 		}
