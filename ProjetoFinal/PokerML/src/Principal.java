@@ -14,18 +14,16 @@ public class Principal {
 		try {
 			System.out.println("Carregando dataset");
 			
-			Dataset dataset = FileHandler.loadDataset(new File("src/datasets/poker.data"),10, ",");
+			Dataset dataset = FileHandler.loadDataset(new File("src/datasets/poker-hand-training.data"),10, ",");
 			//Dataset dataset = FileHandler.loadDataset(new File("src/datasets/car.data"), 4, ",");
 			System.out.println("Dataset Carregado");
 			
-			PokerClassification zica = new PokerClassification();
+			PokerClassification poker = new PokerClassification();
 			Sampling s = Sampling.SubSampling;
 			Pair<Dataset, Dataset> data = s.sample(dataset, (int)(dataset.size()*((double)3/10)), 7);
 			
-			Classifier classifier = zica.criaArvore(9);
+			Classifier classifier = poker.criaArvore(9);
 			classifier.buildClassifier(data.x());
-			
-			
 			
 			for (Instance inst : data.y()) {
 				Object classePredita = classifier.classify(inst);
