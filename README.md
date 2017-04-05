@@ -1,4 +1,6 @@
 # Inteligencia-Artificial
 Atividades desenvolvidas na disciplina de Inteligência Artificial
 
-Repositório contendo todas as atividades desenvolvidas na disciplina de Inteligência Artificial - IFMA
+- Resolução do problema das N Rainhas utilizando busca cega
+- Resolução do Zebra Puzzle utilizando CSP
+- Aprendizagem de Máquina utilizando a biblioteca JavaML
