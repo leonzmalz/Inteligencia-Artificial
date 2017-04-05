@@ -1,3 +1,4 @@
+"report_date","location","location_type","data_field","data_field_code","time_period","time_period_type","value","unit"
 "2016-02-13","Brazil-Acre","state","microcephaly_under_investigation","BR0001",NA,NA,"22","cases"
 "2016-02-13","Brazil-Alagoas","state","microcephaly_under_investigation","BR0001",NA,NA,"90","cases"
 "2016-02-13","Brazil-Amapa","state","microcephaly_under_investigation","BR0001",NA,NA,NA,"cases"
@@ -4286,3 +4287,4 @@
 "2016-05-28","Brazil-Goias","state","zika_reported","BR0011",NA,NA,"3954","cases"
 "2016-05-28","Brazil-Distrito_Federal","state","zika_reported","BR0011",NA,NA,"369","cases"
 "2016-05-28","Brazil","state","zika_reported","BR0011",NA,NA,"161241","cases"
+
