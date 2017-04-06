@@ -1,41 +1,61 @@
-import java.io.File;
 import java.io.IOException;
-
-import be.abeel.util.Pair;
 import net.sf.javaml.classification.Classifier;
 import net.sf.javaml.core.Dataset;
-import net.sf.javaml.core.Instance;
-import net.sf.javaml.sampling.Sampling;
-import net.sf.javaml.tools.data.FileHandler;
 
 public class Principal {
 
 	public static void main(String[] args) {
 		try {
-			System.out.println("Carregando dataset");
 			
-			Dataset dataset = FileHandler.loadDataset(new File("src/datasets/poker-hand-training.data"),10, ",");
-			//Dataset dataset = FileHandler.loadDataset(new File("src/datasets/car.data"), 4, ",");
-			System.out.println("Dataset Carregado");
+			System.out.println("Aprendizagem de Máquina para jogadas de poker");
+
+			//--------------------Treino----------------------------
+			PokerClassification pokerTreino = new PokerClassification();
+			System.out.println("Carregando dataset de Treino");
+			Dataset datasetDeTreino = pokerTreino.getDatasetDeTreino();
+			System.out.println("Dataset de Treino Carregado");
+
+			System.out.println("Criando classificador...");
+			Classifier classificadorDeTreino = pokerTreino.criaArvore(9);
+			classificadorDeTreino = pokerTreino.criaClassificador(classificadorDeTreino, datasetDeTreino);
+			System.out.println("Classificador Criado!");
+
+			System.out.println("Realizando treino...");
+			double tempoTreino = pokerTreino.calculaTempoDeTreino(classificadorDeTreino, datasetDeTreino);
+			System.out.println("Tempo de treino : " + tempoTreino + " ms");
+
+			System.out.println("Calculando performance simples do treino...");
+			pokerTreino.calculaPerformanceSimples(classificadorDeTreino, datasetDeTreino);
 			
-			PokerClassification poker = new PokerClassification();
-			Sampling s = Sampling.SubSampling;
-			Pair<Dataset, Dataset> data = s.sample(dataset, (int)(dataset.size()*((double)3/10)), 7);
+			System.out.println("Calculando performance completa do treino...");
+			pokerTreino.calculaPerformance(classificadorDeTreino, datasetDeTreino); 
 			
-			Classifier classifier = poker.criaArvore(9);
-			classifier.buildClassifier(data.x());
 			
-			for (Instance inst : data.y()) {
-				Object classePredita = classifier.classify(inst);
-				Object classeReal = inst.classValue();
-				
-				System.out.println("Classe Real: " + classeReal);
-				System.out.println("Classe Predita: " + classePredita);
-			}
+			//--------------------Teste----------------------------
+			PokerClassification pokerTeste = new PokerClassification();
+			System.out.println("Carregando dataset de Teste");
+			Dataset datasetDeTeste = pokerTeste.getDatasetDeTeste();
+			System.out.println("Dataset de Teste Carregado");
+
+			System.out.println("Criando classificador...");
+			Classifier classificadorDeTeste = pokerTeste.criaArvore(9);
+			classificadorDeTeste = pokerTeste.criaClassificador(classificadorDeTeste, datasetDeTeste);
+			System.out.println("Classificador Criado!");
+
+			System.out.println("Realizando teste...");
+			double tempoTeste = pokerTeste.calculaTempoDeTreino(classificadorDeTeste, datasetDeTeste);
+			System.out.println("Tempo de teste : " + tempoTeste + " ms");
+
+			System.out.println("Calculando performance simples do teste...");
+			pokerTeste.calculaPerformanceSimples(classificadorDeTeste, datasetDeTeste);
+			
+			System.out.println("Calculando performance completa do teste...");
+			pokerTeste.calculaPerformance(classificadorDeTeste, datasetDeTeste);
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 }
